@@ -4,7 +4,7 @@ import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
 
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 
 @AllArgsConstructor
 @NoArgsConstructor
@@ -22,7 +22,9 @@ public class FoodItemModel {
     @Enumerated(EnumType.STRING)
     private FoodCategory foodCategory;
 
-    private LocalDateTime data;
+    private int quantidade;
+
+    private LocalDate validade;
 
     public Long getId() {
         return id;
@@ -48,11 +50,19 @@ public class FoodItemModel {
         this.foodCategory = foodCategory;
     }
 
-    public LocalDateTime getData() {
-        return data;
+    public LocalDate getValidade() {
+        return validade;
     }
 
-    public void setData(LocalDateTime data) {
-        this.data = data;
+    public void setValidade(LocalDate validade) {
+        this.validade = validade;
+    }
+
+    public int getQuantidade() {
+        return quantidade;
+    }
+
+    public void setQuantidade(int quantidade) {
+        this.quantidade = quantidade;
     }
 }
