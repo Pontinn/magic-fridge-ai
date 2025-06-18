@@ -3,7 +3,7 @@ package dev.pontin.MagicFridgeAI.model;
 public enum FoodCategory {
     VEGETAIS,
     FRIOS,
-    LATICÍNIOS,
+    LATICINIOS,
     CARNES,
     CEREAIS,
     FRUTAS,
