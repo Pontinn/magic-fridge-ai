@@ -1,6 +1,7 @@
 package dev.pontin.MagicFridgeAI.controller;
 
 import dev.pontin.MagicFridgeAI.model.FoodItemModel;
+import dev.pontin.MagicFridgeAI.service.ChatGptImageService;
 import dev.pontin.MagicFridgeAI.service.ChatGptTextService;
 import dev.pontin.MagicFridgeAI.service.FoodItemService;
 import org.springframework.http.ResponseEntity;
@@ -16,18 +17,25 @@ import java.util.List;
 public class RecipeController {
 
     private final FoodItemService foodItemService;
-    private final ChatGptTextService gptService;
+    private final ChatGptTextService chatGptTextService;
+    private final ChatGptImageService chatGptImageService;
 
-    public RecipeController(FoodItemService foodItemService, ChatGptTextService gptService) {
+    public RecipeController(FoodItemService foodItemService, ChatGptTextService chatGptTextService, ChatGptImageService chatGptImageService) {
         this.foodItemService = foodItemService;
-        this.gptService = gptService;
+        this.chatGptTextService = chatGptTextService;
+        this.chatGptImageService = chatGptImageService;
     }
 
     @GetMapping("/gerar")
     public Mono<ResponseEntity<String>> generateRecipe() {
         List<FoodItemModel> foodList = foodItemService.listar();
-        return gptService.generateRecipe(foodList)
-                .map(response -> ResponseEntity.ok(response))
-                .defaultIfEmpty(ResponseEntity.noContent().build());
+        return chatGptTextService.generateRecipe(foodList)
+                .flatMap(generatedRecipe -> {
+                    return chatGptImageService.imageGenerate(generatedRecipe)
+                            .map(generatedImage -> {
+                                String responseBody = "Receita gerada: " + generatedRecipe + "\r\n Imagem da receita: " + generatedImage;
+                                return ResponseEntity.ok(responseBody);
+                            });
+                });
     }
 }
