@@ -22,9 +22,10 @@ public class FoodItemModel {
     @Enumerated(EnumType.STRING)
     private FoodCategory foodCategory;
 
-    private int quantidade;
+    private int quantity;
 
-    private LocalDate validade;
+    @Column(name = "expiration_date")
+    private LocalDate expirationDate;
 
     public Long getId() {
         return id;
@@ -50,19 +51,19 @@ public class FoodItemModel {
         this.foodCategory = foodCategory;
     }
 
-    public LocalDate getValidade() {
-        return validade;
+    public LocalDate getExpirationDate() {
+        return expirationDate;
     }
 
-    public void setValidade(LocalDate validade) {
-        this.validade = validade;
+    public void setExpirationDate(LocalDate expirationDate) {
+        this.expirationDate = expirationDate;
     }
 
-    public int getQuantidade() {
-        return quantidade;
+    public int getQuantity() {
+        return quantity;
     }
 
-    public void setQuantidade(int quantidade) {
-        this.quantidade = quantidade;
+    public void setQuantity(int quantity) {
+        this.quantity = quantity;
     }
 }

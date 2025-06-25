@@ -21,7 +21,8 @@ public class ChatGptImageService {
     }
 
     public Mono<String> imageGenerate(String recipe) {
-        String prompt = "Crie uma imagem de acordo com o titulo da receita, a imagem precisa ser bem fiel ao titulo e precisa conter todos os ingredientes. Receita: \r\n" + recipe;
+        String prompt = "Crie uma imagem de acordo com o titulo da receita, a imagem precisa ser bem fiel ao titulo e precisa conter todos os ingredientes." +
+                " A imagem precisa ser da receita pronta, e não do modo de preparo. Receita: \r\n" + recipe;
 
         Map<String, Object> requestBody = Map.of(
                 "model", "dall-e-3",

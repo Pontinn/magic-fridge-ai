@@ -16,7 +16,7 @@ import java.util.stream.Collectors;
 public class ChatGptTextService {
 
     private final WebClient webClient;
-    private String apiKey = System.getenv("API_KEY");
+    private final String apiKey = System.getenv("API_KEY");
 
     public ChatGptTextService(@Qualifier("recipeApi") WebClient webClient) {
         this.webClient = webClient;
@@ -25,16 +25,17 @@ public class ChatGptTextService {
 
     public Mono<String> generateRecipe(List<FoodItemModel> foodList) {
         String alimentos = foodList.stream()
-                .map(foodItemModel -> String.format("%s (%S) - Quantidade: %d, Validade: %s \r\n",
-                        foodItemModel.getName(), foodItemModel.getFoodCategory(), foodItemModel.getQuantidade(), foodItemModel.getValidade()))
+                .map(foodItemModel -> String.format("Nome: %s | Quantidade: %s | Validade: %s  \r\n",
+                        foodItemModel.getName(), foodItemModel.getQuantity(), foodItemModel.getExpirationDate()))
                 .collect(Collectors.joining());
 
         String prompt = "Me sugira uma receita que contenha apenas os alimentos listados: \r\n" + alimentos +
-                " Não use ingredientes que não estejam listados!";
+                " Não é obrigatório usar todos os ingredientes, mas não use ingredientes que não estão listados. " +
+                " A receita precisa ser em portugues do Brasil";
 
         String instructions = "Você é um chef de cozinha renomado que vai sugerir receitas com tom de humor." +
                 " A receita precisa ter um titulo logo no inicio. Por exemplo, Titulo: Bolo de chocolate";
-        
+
         Map<String, Object> requestBody = Map.of(
                 "model", "gpt-4.1",
                 "instructions", instructions,

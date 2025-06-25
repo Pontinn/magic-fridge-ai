@@ -17,35 +17,35 @@ public class FoodItemService {
         this.foodItemRepository = foodItemRepository;
     }
 
-    public FoodItemModel salvar(FoodItemModel foodItemModel) {
+    public FoodItemModel save(FoodItemModel foodItemModel) {
         return foodItemRepository.save(foodItemModel);
     }
 
-    public List<FoodItemModel> listar() {
+    public List<FoodItemModel> list() {
         return foodItemRepository.findAll();
     }
 
-    public FoodItemModel listarId(Long id) {
+    public FoodItemModel listById(Long id) {
         Optional<FoodItemModel> foodId = foodItemRepository.findById(id);
         return foodId.orElse(null);
     }
 
-    public FoodItemModel atualizar(FoodItemModel foodItemModel) {
+    public FoodItemModel update(FoodItemModel foodItemModel) {
         Optional<FoodItemModel> foodItemModelOptional = foodItemRepository.findById(foodItemModel.getId());
         if (foodItemModelOptional.isPresent()) {
             foodItemModel.setId(foodItemModel.getId());
             return foodItemRepository.save(foodItemModel);
         } else {
-            throw new EntityNotFoundException("Ninja com ID: " + foodItemModel.getId() + " não encontrado.");
+            throw new EntityNotFoundException("Comida com ID: " + foodItemModel.getId() + " não encontrado.");
         }
     }
 
-    public void deletar(FoodItemModel foodItemModel) {
+    public void delete(FoodItemModel foodItemModel) {
         Optional<FoodItemModel> foodItemModelOptional = foodItemRepository.findById(foodItemModel.getId());
         if (foodItemModelOptional.isPresent()) {
             foodItemRepository.deleteById(foodItemModel.getId());
         } else {
-            throw new EntityNotFoundException("Ninja com ID: " + foodItemModel.getId() + " não encontrado.");
+            throw new EntityNotFoundException("Comida com ID: " + foodItemModel.getId() + " não encontrado.");
         }
     }
 }

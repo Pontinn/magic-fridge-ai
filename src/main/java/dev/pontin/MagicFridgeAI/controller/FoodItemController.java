@@ -19,31 +19,31 @@ public class FoodItemController {
     }
 
     //GET
-    @GetMapping("/listar")
-    public ResponseEntity<List<FoodItemModel>> listarTodos() {
-        List<FoodItemModel> foodList = foodItemService.listar();
+    @GetMapping("/list")
+    public ResponseEntity<List<FoodItemModel>> listAll() {
+        List<FoodItemModel> foodList = foodItemService.list();
         return ResponseEntity.ok(foodList);
     }
 
-    @GetMapping("/listar/{id}")
-    public ResponseEntity<FoodItemModel> listarId(@PathVariable Long id) {
-        FoodItemModel foodId = foodItemService.listarId(id);
+    @GetMapping("/list/{id}")
+    public ResponseEntity<FoodItemModel> listById(@PathVariable Long id) {
+        FoodItemModel foodId = foodItemService.listById(id);
         return ResponseEntity.ok(foodId);
     }
 
     //POST
-    @PostMapping("/adicionar")
-    public ResponseEntity<FoodItemModel> adicionar(@RequestBody FoodItemModel foodItemModel) {
-        FoodItemModel foodItemModelSave = foodItemService.salvar(foodItemModel);
+    @PostMapping("/save")
+    public ResponseEntity<FoodItemModel> add(@RequestBody FoodItemModel foodItemModel) {
+        FoodItemModel foodItemModelSave = foodItemService.save(foodItemModel);
         return ResponseEntity.ok()
                 .body(foodItemModel);
     }
 
     //PUT
-    @PutMapping("/atualizar")
-    public ResponseEntity<String> atualizar(@RequestBody FoodItemModel foodItemModel) {
-        if (foodItemService.listarId(foodItemModel.getId()) != null) {
-            foodItemService.atualizar(foodItemModel);
+    @PutMapping("/update")
+    public ResponseEntity<String> update(@RequestBody FoodItemModel foodItemModel) {
+        if (foodItemService.listById(foodItemModel.getId()) != null) {
+            foodItemService.update(foodItemModel);
             return ResponseEntity.ok("Ok!");
         } else {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Não encontrado");
@@ -51,10 +51,10 @@ public class FoodItemController {
     }
 
     //DELETE
-    @DeleteMapping("/deletar")
-    public ResponseEntity<?> deletar(FoodItemModel foodItemModel) {
-        if (foodItemService.listarId(foodItemModel.getId()) != null) {
-            foodItemService.deletar(foodItemModel);
+    @DeleteMapping("/delete")
+    public ResponseEntity<?> delete(FoodItemModel foodItemModel) {
+        if (foodItemService.listById(foodItemModel.getId()) != null) {
+            foodItemService.delete(foodItemModel);
             return ResponseEntity.ok("Deletado");
         } else {
             return ResponseEntity.status(HttpStatus.NOT_FOUND)

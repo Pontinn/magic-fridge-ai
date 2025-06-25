@@ -13,7 +13,7 @@ import reactor.core.publisher.Mono;
 import java.util.List;
 
 @RestController
-@RequestMapping("/receita")
+@RequestMapping("/recipe")
 public class RecipeController {
 
     private final FoodItemService foodItemService;
@@ -26,9 +26,9 @@ public class RecipeController {
         this.chatGptImageService = chatGptImageService;
     }
 
-    @GetMapping("/gerar")
+    @GetMapping("/generate")
     public Mono<ResponseEntity<String>> generateRecipe() {
-        List<FoodItemModel> foodList = foodItemService.listar();
+        List<FoodItemModel> foodList = foodItemService.list();
         return chatGptTextService.generateRecipe(foodList)
                 .flatMap(generatedRecipe -> {
                     return chatGptImageService.imageGenerate(generatedRecipe)
