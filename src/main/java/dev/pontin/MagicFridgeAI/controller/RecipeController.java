@@ -1,7 +1,7 @@
 package dev.pontin.MagicFridgeAI.controller;
 
 import dev.pontin.MagicFridgeAI.model.FoodItemModel;
-import dev.pontin.MagicFridgeAI.service.ChatGptService;
+import dev.pontin.MagicFridgeAI.service.ChatGptTextService;
 import dev.pontin.MagicFridgeAI.service.FoodItemService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -16,9 +16,9 @@ import java.util.List;
 public class RecipeController {
 
     private final FoodItemService foodItemService;
-    private final ChatGptService gptService;
+    private final ChatGptTextService gptService;
 
-    public RecipeController(FoodItemService foodItemService, ChatGptService gptService) {
+    public RecipeController(FoodItemService foodItemService, ChatGptTextService gptService) {
         this.foodItemService = foodItemService;
         this.gptService = gptService;
     }
