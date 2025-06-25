@@ -29,10 +29,15 @@ public class ChatGptTextService {
                         foodItemModel.getName(), foodItemModel.getFoodCategory(), foodItemModel.getQuantidade(), foodItemModel.getValidade()))
                 .collect(Collectors.joining());
 
-        String prompt = "Me sugira uma receita que contenha apenas os alimentos listados: \r\n" + alimentos + " Não use ingredientes que não estejam listados!";
+        String prompt = "Me sugira uma receita que contenha apenas os alimentos listados: \r\n" + alimentos +
+                " Não use ingredientes que não estejam listados!";
+
+        String instructions = "Você é um chef de cozinha renomado que vai sugerir receitas com tom de humor." +
+                " A receita precisa ter um titulo logo no inicio. Por exemplo, Titulo: Bolo de chocolate";
+        
         Map<String, Object> requestBody = Map.of(
                 "model", "gpt-4.1",
-                "instructions", "Fale como um chef de cozinha renomado que vai sugerir receitas com tom de humor",
+                "instructions", instructions,
                 "input", prompt
         );
         return webClient.post()
