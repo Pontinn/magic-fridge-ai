@@ -1,7 +1,7 @@
 package dev.pontin.MagicFridgeAI.service;
 
-import dev.pontin.MagicFridgeAI.config.WebClientConfig;
 import dev.pontin.MagicFridgeAI.model.FoodItemModel;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Service;
@@ -13,13 +13,12 @@ import java.util.Map;
 import java.util.stream.Collectors;
 
 @Service
-public class ChatGptService {
-    private final WebClientConfig webClientConfig;
+public class ChatGptTextService {
+
     private final WebClient webClient;
     private String apiKey = System.getenv("API_KEY");
 
-    public ChatGptService(WebClientConfig webClientConfig, WebClient webClient) {
-        this.webClientConfig = webClientConfig;
+    public ChatGptTextService(@Qualifier("recipeApi") WebClient webClient) {
         this.webClient = webClient;
     }
 
