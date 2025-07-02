@@ -1,92 +1,90 @@
 # 🍳 MagicFridgeAI
 
-MagicFridgeAI is a backend application built with Spring Boot that transforms your fridge's ingredient list into
-complete, humorous recipes, complete with an AI-generated image of the dish.
+O MagicFridgeAI é uma aplicação de backend construída com Spring Boot que transforma a lista de ingredientes da sua geladeira em receitas completas e bem-humoradas, com direito a uma imagem do prato gerada por IA.
 
-The application allows you to manage a list of food items and, with a single command, requests the OpenAI API to create
-a recipe using only the available ingredients. It then generates a corresponding image for the created recipe.
+A aplicação permite que você gerencie uma lista de alimentos e, com um único comando, solicita à API da OpenAI que crie uma receita usando apenas os ingredientes disponíveis. Em seguida, ela gera uma imagem correspondente para a receita criada.
 
-## ✨ Features
+## ✨ Funcionalidades
 
-* **Ingredient Management**: Full CRUD operations to add, list, update, and remove food items from your inventory.
-* **AI-Powered Recipe Generation**: Uses OpenAI's `gpt-4.1` model to create recipes from available ingredients. The
-  instructions are generated with a touch of humor, as if written by a renowned chef.
-* **AI-Powered Image Generation**: After creating the recipe, the application uses the `dall-e-3` model to generate a
-  realistic image of the finished dish.
-* **RESTful API**: Well-defined endpoints to interact with the system, whether for managing ingredients or generating a
-  new recipe.
-* **Database Migration**: Uses Flyway to manage the database schema evolution automatically and in a versioned manner.
+* **Gerenciamento de Ingredientes**: Operações CRUD completas para adicionar, listar, atualizar e remover itens alimentares do seu inventário.
+* **Geração de Receitas com IA**: Utiliza o modelo `gpt-4.1` da OpenAI para criar receitas a partir dos ingredientes disponíveis. As instruções são geradas com um toque de humor, como se fossem escritas por um chef renomado.
+* **Geração de Imagens com IA**: Após criar a receita, a aplicação utiliza o modelo `dall-e-3` para gerar uma imagem realista do prato finalizado.
+* **API RESTful**: Endpoints bem definidos para interagir com o sistema, seja para gerenciar ingredientes ou para gerar uma nova receita.
+* **Migração de Banco de Dados**: Utiliza o Flyway para gerenciar a evolução do esquema do banco de dados de forma automática e versionada.
 
-## 🛠️ Technologies Used
+## 🛠️ Tecnologias Utilizadas
 
 * **Backend**: Java 21 & Spring Boot 3.5.0
-* **Data Access**: Spring Data JPA
-* **Database**: H2 (runtime scope), with schema managed by Flyway.
-* **Reactive Communication**: Spring WebFlux `WebClient` for making calls to the OpenAI API.
-* **Artificial Intelligence**:
-    * Text: OpenAI `gpt-4.1`
-    * Image: OpenAI `dall-e-3`
+* **Acesso a Dados**: Spring Data JPA
+* **Banco de Dados**: H2 (escopo de execução), com esquema gerenciado pelo Flyway.
+* **Comunicação Reativa**: Spring WebFlux `WebClient` para fazer chamadas para a API da OpenAI.
+* **Inteligência Artificial**:
+    * Texto: OpenAI `gpt-4.1`
+    * Imagem: OpenAI `dall-e-3`
 * **Build**: Apache Maven
-* **Utilities**: Lombok
+* **Utilitários**: Lombok
 
-## 🚀 Getting Started
+## 🚀 Como Começar
 
-**Prerequisites:**
+**Pré-requisitos:**
 
-* Java 21 or higher
+* Java 21 ou superior
 * Apache Maven
-* An OpenAI API key
+* Uma chave de API da OpenAI
 
-1. **Clone the repository:**
-   ```bash
-   git clone [https://github.com/Pontinn/magic-fridge-ai.git](https://github.com/Pontinn/magic-fridge-ai.git)
-   cd magic-fridge-ai
-   ```
+1.  **Clone o repositório:**
+    ```bash
+    git clone [https://github.com/Pontinn/magic-fridge-ai.git](https://github.com/Pontinn/magic-fridge-ai.git)
+    cd magic-fridge-ai
+    ```
+   
+2.  **Configure as Variáveis de Ambiente:**
+    A aplicação requer que as seguintes variáveis de ambiente sejam definidas:
+    * `API_KEY`: Sua chave de API secreta da OpenAI.
+    * `DATABASE_URL`: A URL de conexão JDBC para o seu banco de dados (por exemplo, `jdbc:h2:mem:magicfridgedb` para um banco de dados em memória).
+    * `DATABASE_USERNAME`: O nome de usuário para o banco de dados.
+    * `DATABASE_PASSWORD`: A senha para o banco de dados.
 
-2. **Configure Environment Variables:**
-   The application requires the following environment variables to be set:
-    * `API_KEY`: Your secret OpenAI API key.
-    * `DATABASE_URL`: The JDBC connection URL for your database (e.g., `jdbc:h2:mem:magicfridgedb` for an in-memory
-      database).
-    * `DATABASE_USERNAME`: The username for the database.
-    * `DATABASE_PASSWORD`: The password for the database.
+3.  **Execute a aplicação com o Maven:**
+    ```bash
+    mvn spring-boot:run
+    ```
+   
+    A aplicação estará disponível em `http://localhost:8080`.
 
-3. **Run the application with Maven:**
-   ```bash
-   mvn spring-boot:run
-   ```
-   The application will be available at `http://localhost:8080`.
+## 🚧 Em Desenvolvimento
 
-## 🔌 API Endpoints
+Este projeto está em desenvolvimento contínuo. Novas funcionalidades, incluindo uma interface de frontend, serão adicionadas em breve para aprimorar a experiência do usuário.
 
-The base URL for the endpoints is `http://localhost:8080`.
+## 🔌 Endpoints da API
 
-### Food Management (`/food`)
+A URL base para os endpoints é `http://localhost:8080`.
 
-* **`POST /food/save`**: Adds a new food item.
-    * **Request Body**:
+### Gerenciamento de Alimentos (`/food`)
+
+* **`POST /food/save`**: Adiciona um novo item alimentar.
+    * **Corpo da Requisição**:
         ```json
         {
-            "name": "Tomato",
-            "foodCategory": "FRUITS",
+            "name": "Tomate",
+            "foodCategory": "FRUTAS",
             "quantity": 5,
             "expirationDate": "2025-12-31"
         }
         ```
-    * **Available Food Categories**: `VEGETABLES`, `COLD_CUTS`, `DAIRY`, `MEATS`, `CEREALS`, `FRUITS`, `BEVERAGES`,
-      `LEGUMES`, `SAUCES`, `SPICES`, `GRAINS`, `PASTA`, `SEAFOOD`, `SWEETS`, `OTHERS`.
+       
+    * **Categorias de Alimentos Disponíveis**: `VEGETAIS`, `FRIOS`, `LATICINIOS`, `CARNES`, `CEREAIS`, `FRUTAS`, `BEBIDAS`, `LEGUMES`, `MOLHOS`, `ESPECIARIAS`, `GRAOS`, `MASSAS`, `FRUTOS_DO_MAR`, `DOCES`, `OUTROS`.
 
-* **`GET /food/list`**: Lists all registered food items.
-* **`GET /food/list/{id}`**: Fetches a food item by its ID.
-* **`PUT /food/update`**: Updates an existing food item.
-* **`DELETE /food/delete`**: Deletes a food item.
+* **`GET /food/list`**: Lista todos os itens alimentares registrados.
+* **`GET /food/list/{id}`**: Busca um item alimentar pelo seu ID.
+* **`PUT /food/update`**: Atualiza um item alimentar existente.
+* **`DELETE /food/delete`**: Deleta um item alimentar.
 
-### Recipe Generation (`/recipe`)
+### Geração de Receita (`/recipe`)
 
-* **`GET /recipe/generate`**: Starts the recipe and image generation process based on the items registered in the
-  database.
-    * **Example Success Response**:
+* **`GET /recipe/generate`**: Inicia o processo de geração de receita e imagem com base nos itens cadastrados no banco de dados.
+    * **Exemplo de Resposta de Sucesso**:
         ```
-        Recipe generated: Title: The Mad Chef's Tomatada ... [rest of the recipe] ...
-        Recipe image: [https://url.of.the.image/generated_by_dalle.png](https://url.of.the.image/generated_by_dalle.png)
+        Receita gerada: Título: A Tomatada do Chef Maluco ... [resto da receita] ...
+        Imagem da receita: [https://url.da.imagem/gerada_pelo_dalle.png](https://url.da.imagem/gerada_pelo_dalle.png)
         ```
