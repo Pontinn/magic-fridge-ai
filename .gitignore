@@ -1,3 +1,4 @@
+# Backend and General Files
 HELP.md
 target/
 .mvn/wrapper/maven-wrapper.jar
@@ -15,6 +16,7 @@ target/
 
 ### IntelliJ IDEA ###
 .idea
+backend/.idea
 *.iws
 *.iml
 *.ipr
@@ -34,3 +36,45 @@ build/
 
 .env
 data/
+
+# Frontend Rules (adapted for the root)
+
+# Dependencies
+frontend/node_modules
+frontend/.pnp
+frontend/.pnp.*
+frontend/.yarn/*
+!frontend/.yarn/patches
+!frontend/.yarn/plugins
+!frontend/.yarn/releases
+!frontend/.yarn/versions
+
+# Tests
+frontend/coverage
+
+# Next.js
+frontend/.next/
+frontend/out/
+
+# Production
+frontend/build
+
+# Misc
+.DS_Store
+*.pem
+
+# Debug
+frontend/npm-debug.log*
+frontend/yarn-debug.log*
+frontend/yarn-error.log*
+frontend/.pnpm-debug.log*
+
+# Frontend .env files
+frontend/.env*
+
+# Vercel
+frontend/.vercel
+
+# TypeScript
+frontend/*.tsbuildinfo
+frontend/next-env.d.ts
